@@ -15,35 +15,40 @@ const SOLUTIONS = [
     icon: <Building2 className="w-6 h-6" />, 
     description: 'Drive employee health, productivity, and engagement at scale.', 
     cta: 'Explore Corporate Solutions',
-    color: 'from-blue-500 to-blue-700'
+    color: 'from-blue-500 to-blue-700',
+    image: 'https://picsum.photos/seed/corporate-health-solution/600/400'
   },
   { 
     title: 'Insurers & Payers', 
     icon: <ShieldCheck className="w-6 h-6" />, 
     description: 'Shift from reactive claims to proactive risk reduction.', 
     cta: 'Explore Insurance Solutions',
-    color: 'from-cyan-500 to-cyan-700'
+    color: 'from-cyan-500 to-cyan-700',
+    image: 'https://picsum.photos/seed/insurance-solution/600/400'
   },
   { 
     title: 'Hospitals & Providers', 
     icon: <Hospital className="w-6 h-6" />, 
     description: 'Enable continuous care beyond discharge.', 
     cta: 'Explore Provider Solutions',
-    color: 'from-purple-500 to-purple-700'
+    color: 'from-purple-500 to-purple-700',
+    image: 'https://picsum.photos/seed/hospital-solution/600/400'
   },
   { 
     title: 'Pharma & Life Sciences', 
     icon: <Microscope className="w-6 h-6" />, 
     description: 'Drive adherence and real-world patient outcomes.', 
     cta: 'Explore Pharma Solutions',
-    color: 'from-emerald-500 to-emerald-700'
+    color: 'from-emerald-500 to-emerald-700',
+    image: 'https://picsum.photos/seed/pharma-solution/600/400'
   },
   { 
     title: 'Government & Public Health', 
     icon: <Globe className="w-6 h-6" />, 
     description: 'Scale preventive healthcare across populations.', 
     cta: 'Explore Public Health Solutions',
-    color: 'from-orange-500 to-orange-700'
+    color: 'from-orange-500 to-orange-700',
+    image: 'https://picsum.photos/seed/public-health-solution/600/400'
   },
 ];
 
@@ -69,23 +74,35 @@ export const Solutions = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1 }}
-              className="group relative bg-card p-10 rounded-[2.5rem] hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-500 overflow-hidden w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm"
+              className="group relative bg-card rounded-[2.5rem] hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-500 overflow-hidden w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm flex flex-col"
             >
-              <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${solution.color} opacity-0 group-hover:opacity-100 transition-opacity`} />
+              <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${solution.color} opacity-0 group-hover:opacity-100 transition-opacity z-20`} />
               
-              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${solution.color} flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform text-white`}>
+              <div className="h-48 w-full relative overflow-hidden">
+                <img 
+                  src={solution.image} 
+                  alt={solution.title} 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              </div>
+              
+              <div className={`absolute top-48 left-8 -translate-y-1/2 w-14 h-14 rounded-2xl bg-gradient-to-br ${solution.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform text-white z-20`}>
                 {solution.icon}
               </div>
               
-              <h3 className="text-2xl font-bold mb-4 group-hover:text-cyan-500 transition-colors">{solution.title}</h3>
-              <p className="opacity-70 leading-relaxed mb-8 group-hover:opacity-100 transition-opacity">
-                {solution.description}
-              </p>
-              
-              <button className="flex items-center gap-2 text-cyan-500 font-bold uppercase tracking-widest text-xs hover:text-cyan-600 transition-colors">
-                {solution.cta}
-                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              <div className="p-8 pt-10 flex-1 flex flex-col">
+                <h3 className="text-2xl font-bold mb-4 group-hover:text-cyan-500 transition-colors">{solution.title}</h3>
+                <p className="opacity-70 leading-relaxed mb-8 group-hover:opacity-100 transition-opacity flex-1">
+                  {solution.description}
+                </p>
+                
+                <button className="flex items-center gap-2 text-cyan-500 font-bold uppercase tracking-widest text-xs hover:text-cyan-600 transition-colors mt-auto">
+                  {solution.cta}
+                  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
             </motion.div>
           ))}
         </div>

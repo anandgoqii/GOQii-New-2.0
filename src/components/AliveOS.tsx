@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   Dna, 
   UserCircle, 
@@ -106,8 +106,8 @@ const ConnectionLine: React.FC<ConnectionLineProps & { isActive?: boolean; isDim
         strokeLinecap="round"
         className="text-black dark:text-white"
         initial={{ pathLength: 0, opacity: 0 }}
-        whileInView={{ pathLength: 1, opacity: isDimmed ? 0.1 : 1 }}
-        transition={{ duration: 1.5, delay, ease: "easeInOut" }}
+        animate={{ pathLength: 1, opacity: isDimmed ? 0.1 : 1 }}
+        transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
       />
 
       {/* Flowing Light Pulse (Node -> Core) */}
@@ -122,7 +122,7 @@ const ConnectionLine: React.FC<ConnectionLineProps & { isActive?: boolean; isDim
         transition={{ 
           duration: 3, 
           repeat: Infinity, 
-          delay: delay + 1,
+          delay: delay % 2,
           ease: "linear"
         }}
         style={{
@@ -133,12 +133,13 @@ const ConnectionLine: React.FC<ConnectionLineProps & { isActive?: boolean; isDim
       />
     </svg>
   );
-};export const AliveOS = () => {
+};
+
+export const AliveOS = () => {
   const [selectedPillar, setSelectedPillar] = useState<PillarNode | null>(null);
   const [hoveredPillar, setHoveredPillar] = useState<string | null>(null);
   const [isDark, setIsDark] = useState(false);
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: false, amount: 0.3 });
 
   React.useEffect(() => {
     const observer = new MutationObserver((mutations) => {
@@ -152,14 +153,6 @@ const ConnectionLine: React.FC<ConnectionLineProps & { isActive?: boolean; isDim
     setIsDark(document.documentElement.classList.contains('dark'));
     return () => observer.disconnect();
   }, []);
-  
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
-
-  const coreScale = useTransform(scrollYProgress, [0.4, 0.6, 0.8], [1, 1.1, 2]);
-  const coreOpacity = useTransform(scrollYProgress, [0.7, 0.9], [1, 0]);
 
   const RADIUS = 30; // Percentage from center
   const CENTER = 50; // Center percentage
@@ -201,7 +194,7 @@ const ConnectionLine: React.FC<ConnectionLineProps & { isActive?: boolean; isDim
                 endX={coords.x}
                 endY={coords.y}
                 color={pillar.color.split(' ')[0].replace('from-', '')}
-                delay={1.2 + idx * 0.15} // Appear after core
+                delay={idx * 0.2}
                 isActive={isActive}
                 isDimmed={isDimmed}
               />
@@ -210,13 +203,7 @@ const ConnectionLine: React.FC<ConnectionLineProps & { isActive?: boolean; isDim
         </div>
 
         {/* Core Node */}
-        <motion.div
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={isInView ? { scale: 1, opacity: 1 } : {}}
-          style={{ scale: coreScale, opacity: coreOpacity }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-20"
-        >
+        <div className="relative z-20">
           <motion.div 
             animate={{ 
               scale: hoveredPillar ? 1.05 : [1, 1.04, 1],
@@ -246,7 +233,7 @@ const ConnectionLine: React.FC<ConnectionLineProps & { isActive?: boolean; isDim
               <p className="text-[10px] text-cyan-500/60 uppercase tracking-[0.3em] mt-2">Intelligence Core</p>
             </div>
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* Pillars */}
         {PILLARS.map((pillar, idx) => {
@@ -257,20 +244,22 @@ const ConnectionLine: React.FC<ConnectionLineProps & { isActive?: boolean; isDim
           return (
             <motion.div
               key={pillar.id}
-              initial={{ opacity: 0, scale: 0.5, x: "-50%", y: "-50%" }}
-              animate={isInView ? { 
+              initial={{ 
+                opacity: 1, 
+                scale: 1, 
+                x: "-50%", 
+                y: "-50%",
+                left: `${coords.x}%`,
+                top: `${coords.y}%`
+              }}
+              animate={{ 
                 opacity: isDimmed ? 0.3 : 1, 
                 scale: isActive ? 1.15 : 1,
-                left: `${coords.x}%`,
-                top: `${coords.y}%`,
-              } : {}}
-              transition={isInView ? { 
+              }}
+              transition={{ 
                 opacity: { duration: 0.4 },
                 scale: { duration: 0.4 },
-                left: { duration: 1, delay: 1.5 + idx * 0.15, ease: [0.16, 1, 0.3, 1] },
-                top: { duration: 1, delay: 1.5 + idx * 0.15, ease: [0.16, 1, 0.3, 1] },
-                initial: { delay: 1.5 + idx * 0.15 }
-              } : {}}
+              }}
               className="absolute z-30 hidden md:block"
               style={{ transform: "translate(-50%, -50%)" }}
             >

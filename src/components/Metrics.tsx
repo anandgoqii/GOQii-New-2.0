@@ -2,14 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'motion/react';
 
 const METRICS = [
-  { value: 34, suffix: '%', label: 'reduction in ER visits' },
-  { value: 90, suffix: '%', label: 'patient satisfaction (NHS programs)' },
-  { value: 85, suffix: '%', label: 'increase in employee engagement' },
-  { value: 28, suffix: '%', label: 'improvement in treatment adherence' },
-  { value: 30, suffix: '%', label: 'increase in preventive health engagement' },
-  { value: 21, prefix: '+', suffix: '%', label: 'immune function' },
-  { value: 16, prefix: '+', suffix: '%', label: 'muscularity' },
-  { value: 23, prefix: '+', suffix: '%', label: 'cognitive performance' },
+  { value: 34, suffix: '%', label: 'reduction in emergency visits' },
+  { value: 90, suffix: '%', label: 'patient satisfaction' },
+  { value: 85, suffix: '%', label: 'employee engagement' },
+  { value: 28, suffix: '%', label: 'improvement in adherence' },
 ];
 
 const Counter = ({ value, prefix = '', suffix = '', duration = 2 }) => {
@@ -43,15 +39,18 @@ const Counter = ({ value, prefix = '', suffix = '', duration = 2 }) => {
 
 export const Metrics = () => {
   return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-32 relative overflow-hidden bg-slate-900 text-white">
+      <div className="absolute inset-0 bg-[url('https://picsum.photos/seed/network/1920/1080?blur=10')] opacity-20 mix-blend-overlay" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900/90 to-slate-900" />
+      
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          viewport={{ once: true }}
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-display font-bold mb-4 tracking-tight">Proven Outcomes at Scale</h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">Measurable clinical and operational impact across diverse populations and healthcare settings.</p>
+          <h2 className="text-4xl md:text-6xl font-display font-bold mb-6 tracking-tight">Measurable Outcomes. Real Impact.</h2>
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -60,29 +59,18 @@ export const Metrics = () => {
               key={idx}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className="bg-card rounded-3xl p-8 text-center hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.1)] group"
+              className="text-center"
             >
-              <div className="text-4xl md:text-5xl font-display font-bold text-cyan-500 mb-2 group-hover:scale-110 transition-transform">
+              <div className="text-5xl md:text-7xl font-display font-bold text-cyan-400 mb-4">
                 <Counter {...metric} />
               </div>
-              <p className="text-xs md:text-sm opacity-60 uppercase tracking-widest font-bold leading-relaxed">
+              <p className="text-sm md:text-base opacity-80 uppercase tracking-widest font-bold leading-relaxed max-w-[200px] mx-auto">
                 {metric.label}
               </p>
             </motion.div>
           ))}
-        </div>
-
-        <div className="mt-24 pt-12 border-t border-black/5 dark:border-white/5">
-          <p className="text-center opacity-40 uppercase tracking-[0.3em] text-[10px] md:text-xs font-bold mb-12">Trusted by</p>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-20 opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
-            {/* Placeholder logos using text for now as per instructions (no stock imagery) */}
-            <div className="text-xl md:text-2xl font-bold tracking-tighter">NHS</div>
-            <div className="text-xl md:text-2xl font-bold tracking-tighter">SAMSUNG</div>
-            <div className="text-xl md:text-2xl font-bold tracking-tighter">RELIANCE</div>
-            <div className="text-xl md:text-2xl font-bold tracking-tighter">ADITYA BIRLA</div>
-            <div className="text-xl md:text-2xl font-bold tracking-tighter">TATA</div>
-          </div>
         </div>
       </div>
     </section>

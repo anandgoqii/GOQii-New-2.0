@@ -110,6 +110,12 @@ export const HeroBackground = () => {
 
   return (
     <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+      <img 
+        src="https://picsum.photos/seed/longevity/1920/1080" 
+        alt="Hero Background" 
+        className="absolute inset-0 w-full h-full object-cover"
+        referrerPolicy="no-referrer"
+      />
       <AnimatePresence mode="wait">
         {!isDark ? (
           <motion.div
@@ -118,7 +124,7 @@ export const HeroBackground = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
-            className="absolute inset-0 bg-gradient-to-b from-white to-slate-50"
+            className="absolute inset-0 bg-gradient-to-b from-white/80 to-slate-50/95 backdrop-blur-sm"
           >
             {/* Dot Grid */}
             <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:32px_32px] opacity-60" />
@@ -156,7 +162,7 @@ export const HeroBackground = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
-            className="absolute inset-0 bg-gradient-to-b from-slate-950 to-[#020617]"
+            className="absolute inset-0 bg-gradient-to-b from-slate-950/90 to-[#020617]/95 backdrop-blur-sm"
           >
             <canvas
               ref={canvasRef}

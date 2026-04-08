@@ -24,12 +24,19 @@ export const Sanjeevini = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-center mb-20"
+          className="text-center mb-20 flex flex-col items-center"
         >
           <h2 className="text-4xl md:text-6xl font-display font-bold mb-6 tracking-tight">Sanjeevini Consortium</h2>
-          <p className="text-xl opacity-70 max-w-3xl mx-auto font-light leading-relaxed">
+          <p className="text-xl opacity-70 max-w-3xl mx-auto font-light leading-relaxed mb-8">
             The Science Behind Longevity. Built on a foundation of clinical authority and rigorous validation.
           </p>
+          <a 
+            href="#" 
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-cyan-500 text-white font-bold text-base hover:bg-cyan-600 transition-all duration-300 shadow-xl shadow-cyan-500/20 group"
+          >
+            Visit Sanjeevini Consortium
+            <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </a>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">

@@ -8,6 +8,7 @@ import {
   Instagram, 
   Zap 
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   return (
@@ -88,7 +89,7 @@ export const Footer = () => {
           <div>
             <h4 className="font-bold uppercase tracking-widest text-xs mb-8">Company</h4>
             <ul className="space-y-4 opacity-50">
-              <li><a href="#" className="hover:text-cyan-500 transition-colors">About Us</a></li>
+              <li><Link to="/about" className="hover:text-cyan-500 transition-colors">About Us</Link></li>
               <li><a href="#" className="hover:text-cyan-500 transition-colors">Privacy Policy</a></li>
               <li><a href="#" className="hover:text-cyan-500 transition-colors">Terms of Service</a></li>
               <li><a href="#" className="hover:text-cyan-500 transition-colors">Contact</a></li>
